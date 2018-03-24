@@ -33,7 +33,7 @@ BUILD_DEPLOY_DIR=${DEFAULT_DEPLOY_DIR:-$DEFAULT_DEPLOY_DIR}
 mkdir -p "${BUILD_DEPLOY_DIR}"
 
 declare -a arr=("base-notebook"
-"minimal-notebook")
+"minimal-notebook"
 "scipy-notebook"
 "r-notebook"
 "tensorflow-notebook"
