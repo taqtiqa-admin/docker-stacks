@@ -12,9 +12,9 @@ env:
     - ARCH=amd64 ACI_NAME=$(basename $TRAVIS_REPO_SLUG) ACI_ORG=$(dirname $TRAVIS_REPO_SLUG)
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq rkt
   - git clone https://github.com/taqtiqa/ci.git
-  - cat ci/scripts/openssl.sh | sudo bash
+  - cat ci/scripts/install-openssl.sh | sudo bash
+  - cat ci/scripts/install-rkt.sh | sudo bash
 before_script:
   - openssl aes-256-cbc -pass env:ACI_SECRET -in ./rkt-stacks-privatekeys.asc.enc -out ./rkt-stacks-privatekeys.asc -d -a
 script:
