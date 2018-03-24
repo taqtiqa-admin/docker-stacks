@@ -3,9 +3,9 @@ dist: trusty
 sudo: true
 env:
   global:
-    - secure: rPwokt56aCW9t+0Hb8DqLr6U7F/l7VKrqvB3TtHMBcmaKb1Tcc/NnZmq78fxKXuALmyGwAsLBwt/0K2e7g3Fs/OC2qHu5iI45xu2p5uhpu0HWgBWU0rxI6dI/MlDnWBgAA52FZFKwCB9tSyJN57XtE4lp19AxuXfJjbA7+JTK3vg3DQ7GFo20LhggefXlXJPiFHKqtgrJf00BeLUeUr3F38nbwXixq8pYNLqJEa6QM7h8ATjFXZq4P1NAEsJZ5DL57klet7fNlHq3WEgcmCST7zcSeL3JyKSWhNT7YGia5pYtUYqrQGOJt+c1dUD44avUmOUnQI5YoVhdA8i9ZV0LY4jJAnXd7jXaAdry/HxUzBC5bjvxuppHTj4CO0pwTEYgyU4Ef1Kt65BNDxSagEMO3FAQlqqykW7yFXWiYKKv6gGAkQH7tszhKiu6HDoSAOYT5yBoSU6ESiSBUng1XrH+OokNhGZKKBNzqiMaxPZbTncvse/bV4S44J8DePrUUgOWotpbIKILqgPw347WxyB1gDdvEoqqbWpndfqHfY/d8mQb59SaDk3gE5L9iYg/kBLgUMJqMhYaqYNJW5pJHOLl76L2sRD87Ky2wtlU5e4b0L3JtV/5vpnbWKJHdcDCGn2JFuwKzDxHMFgf7SdAR3P9AZaNEI3n2bFym0Kx/Ujpm8=
-    - ARTIFACTS_KEY=$AWS_ACCESS_KEY_ID
-    - ARTIFACTS_SECRET=$AWS_SECRET_ACCESS_KEY
+    - secure: Oj0Qyn1z9usziJd6nybP66t9tBJ7cm7WNHnqniTv9QrnNcujDFKfJXXoMbf8cYM3HVE45qXeVMn5xFbtSGyTnfJGaX3YlC4QoFjZN5T4XxebzfqEQBvn0ODRAQEreDFN5cw9j+m1uzF+iPQw7b+kOk58l0urdA+uGvCz3m3VJxJZR3K12gpW4cagdSM6qh96nro6DRk0qx0Sc7qLF7PHuJ8eTRVy7L/IpEibjqdf9ZsbWyOj7oSTrvfF/tp0ZH4q6LyVsVkb9FxWvwzZslxa/BCtWU3eGP4wcrTPjoEJqTvkhc/I/Xsog4H/5z90oPHgSGlEsyJlMGLak7GeX9/4jszWqIUW5rYT2dgqszquHxlMhzKgsrMAD+ijbM/c/VcxvZ9avsTdocdYlGpFgI6fC2snpwkmjtnSLN+W5TvAtDSajfgeKZiG3TLCeCZ/uc6crgNRz+GhfYEnQA+ndzKC33M+b2QoCUr1pNMB0ShSsWoIkkWUa1/8Yv6Yb1a9pvyDMyS+fgWVyyrs76MFxLPU95vkvi0+48eriJXSvoTGR93X97wdZVIb7BArfU3s9Rp9AQfP7Mjbn1873fcO2XLEBZD/07IE3pyFUhlBbVv2FXPPCARJYVFD+rHn1RJ6gMgfT9sx4m4iqCthaNoBo7AJgcye04TkbLsC0n66o3KIJkQ=
+    - ARTIFACTS_KEY=${AWS_ACCESS_KEY_ID}
+    - ARTIFACTS_SECRET=${AWS_SECRET_ACCESS_KEY}
     - ARTIFACTS_BUCKET=taqtiqa.io
   matrix:
     - ARCH=amd64 ACI_NAME=$(basename $TRAVIS_REPO_SLUG) ACI_ORG=$(dirname $TRAVIS_REPO_SLUG)
@@ -18,9 +18,9 @@ script:
   - cat ./rkt-jupyter.sh | sudo bash
 addons:
   artifacts:
-    s3_region: "us-east-1" # defaults to "us-east-1"
+    s3_region: "us-east-1" 
     paths:
-    - $(git ls-files -o | tr "\n" ":") #"${ACI_NAME}-${TRAVIS_TAG}-linux-${ARCH}.aci" and "${ACI_NAME}-${TRAVIS_TAG}-linux-${ARCH}.aci.asc"
+    - $(git ls-files -o | tr "\n" ":") 
     debug: true
     target_paths:
     - /aci
