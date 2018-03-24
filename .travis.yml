@@ -58,7 +58,7 @@ matrix:
       #         echo "This will not run on tag triggered build!"
       #       fi
       addons:
-        artifacts: true
+        artifacts:
           s3_region: "us-east-1" # defaults to "us-east-1"
           paths:
           - $(git ls-files -o | tr "\n" ":") #"${ACI_NAME}-${TRAVIS_TAG}-linux-${ARCH}.aci" and "${ACI_NAME}-${TRAVIS_TAG}-linux-${ARCH}.aci.asc"
