@@ -1,95 +1,32 @@
-matrix:
-  include:
-    # - language: python
-    #   python:
-    #       - 3.6
-    #   sudo: required
-    #   services:
-    #       - docker
-    #   install:
-    #       - make test-reqs
-    #   script:
-    #       - make build-test-all
-    - language: generic
-      dist: trusty
-      sudo: true
-      if: (branch = master) AND tag IS present
-      # Deploy only builds with release semantic version numbers
-      # Example: 1.2.3+4 OR 1.2.3-4 OR 1.2.3-2+4
-      # branches:
-      #   only:
-      #     - /^(([0-9]+)\.([0-9]+)\.([0-9]+))?(-|\+|\.)([0-9]+)?(|(-|\+)([0-9]+))?$/
-      # Build order
-      #    before_install
-      #    install
-      #    before_script
-      #    script
-      #    after_success / after_failure
-      #    after_script
-      #
-      # After the the after_script has run.
-      #
-      #    before_deploy
-      #    deploy
-      #    after_deploy
-      # encrypt ACI_SECRET using 
-      env:
-        global:
-          - secure: rPwokt56aCW9t+0Hb8DqLr6U7F/l7VKrqvB3TtHMBcmaKb1Tcc/NnZmq78fxKXuALmyGwAsLBwt/0K2e7g3Fs/OC2qHu5iI45xu2p5uhpu0HWgBWU0rxI6dI/MlDnWBgAA52FZFKwCB9tSyJN57XtE4lp19AxuXfJjbA7+JTK3vg3DQ7GFo20LhggefXlXJPiFHKqtgrJf00BeLUeUr3F38nbwXixq8pYNLqJEa6QM7h8ATjFXZq4P1NAEsJZ5DL57klet7fNlHq3WEgcmCST7zcSeL3JyKSWhNT7YGia5pYtUYqrQGOJt+c1dUD44avUmOUnQI5YoVhdA8i9ZV0LY4jJAnXd7jXaAdry/HxUzBC5bjvxuppHTj4CO0pwTEYgyU4Ef1Kt65BNDxSagEMO3FAQlqqykW7yFXWiYKKv6gGAkQH7tszhKiu6HDoSAOYT5yBoSU6ESiSBUng1XrH+OokNhGZKKBNzqiMaxPZbTncvse/bV4S44J8DePrUUgOWotpbIKILqgPw347WxyB1gDdvEoqqbWpndfqHfY/d8mQb59SaDk3gE5L9iYg/kBLgUMJqMhYaqYNJW5pJHOLl76L2sRD87Ky2wtlU5e4b0L3JtV/5vpnbWKJHdcDCGn2JFuwKzDxHMFgf7SdAR3P9AZaNEI3n2bFym0Kx/Ujpm8=
-          - ARTIFACTS_KEY=$AWS_ACCESS_KEY_ID
-          - ARTIFACTS_SECRET=$AWS_SECRET_ACCESS_KEY
-          - ARTIFACTS_BUCKET=taqtiqa.io
-        matrix:
-          - ARCH=amd64 ACI_NAME=$(basename $TRAVIS_REPO_SLUG) ACI_ORG=$(dirname $TRAVIS_REPO_SLUG)
-      before_install:
-        - git clone https://github.com/taqtiqa/ci.git
-        - cat ci/scripts/openssl.sh | sudo bash
-      before_script:
-        - openssl aes-256-cbc -pass env:ACI_SECRET -in ./rkt-stacks-privatekeys.asc.enc -out ./rkt-stacks-privatekeys.asc -d -a
-      script:
-        - cat ./rkt-jupyter.sh | sudo bash
-      # Generate public key artifacts to ready for deployment
-      # after_success:
-      #   - |
-      #       if ([ ! -z "${TRAVIS_TAG}" ]) && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-      #         echo "This will run on tag triggered build!"
-      #         cat ./scripts/gen-keys.sh | bash
-      #       else
-      #         echo "This will not run on tag triggered build!"
-      #       fi
-      addons:
-        artifacts:
-          s3_region: "us-east-1" # defaults to "us-east-1"
-          paths:
-          - $(git ls-files -o | tr "\n" ":") #"${ACI_NAME}-${TRAVIS_TAG}-linux-${ARCH}.aci" and "${ACI_NAME}-${TRAVIS_TAG}-linux-${ARCH}.aci.asc"
-          debug: true
-          # deafault bucket path ./${TRAVIS_REPO_SLUG}/${TRAVIS_BUILD_NUMBER}/${TRAVIS_JOB_NUMBER}
-          target_paths:
-          - /aci
-          skip_cleanup: true
-          overwrite: true
-          # on:
-          #   tags: /^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)$/
-          #   all_branches: true
-          #   condition: '$TRAVIS_TAG =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)$'
-      # Deploy only builds with release semantic version numbers
-      # Example: 1.2.3.4 BUT NOT 1.2.3-4 or 1.2.3-2+4
-      # deploy:
-      #   - provider: releases
-      #     api_key: ${GH_PA_TOKEN}
-      #     file:
-      #       - "${TRAVIS_BUILD_DIR}/${ACI_NAME}-${TRAVIS_TAG}-linux-${ARCH}.aci"
-      #       - "${TRAVIS_BUILD_DIR}/${ACI_NAME}-${TRAVIS_TAG}-linux-${ARCH}.aci.asc"
-      #     skip_cleanup: true
-      #     overwrite: true
-      #     on:
-      #       tags: /^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)$/
-      #       all_branches: true
-      #       condition: '$TRAVIS_TAG =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)$'
+language: generic
+dist: trusty
+sudo: true
+env:
+  global:
+    - secure: rPwokt56aCW9t+0Hb8DqLr6U7F/l7VKrqvB3TtHMBcmaKb1Tcc/NnZmq78fxKXuALmyGwAsLBwt/0K2e7g3Fs/OC2qHu5iI45xu2p5uhpu0HWgBWU0rxI6dI/MlDnWBgAA52FZFKwCB9tSyJN57XtE4lp19AxuXfJjbA7+JTK3vg3DQ7GFo20LhggefXlXJPiFHKqtgrJf00BeLUeUr3F38nbwXixq8pYNLqJEa6QM7h8ATjFXZq4P1NAEsJZ5DL57klet7fNlHq3WEgcmCST7zcSeL3JyKSWhNT7YGia5pYtUYqrQGOJt+c1dUD44avUmOUnQI5YoVhdA8i9ZV0LY4jJAnXd7jXaAdry/HxUzBC5bjvxuppHTj4CO0pwTEYgyU4Ef1Kt65BNDxSagEMO3FAQlqqykW7yFXWiYKKv6gGAkQH7tszhKiu6HDoSAOYT5yBoSU6ESiSBUng1XrH+OokNhGZKKBNzqiMaxPZbTncvse/bV4S44J8DePrUUgOWotpbIKILqgPw347WxyB1gDdvEoqqbWpndfqHfY/d8mQb59SaDk3gE5L9iYg/kBLgUMJqMhYaqYNJW5pJHOLl76L2sRD87Ky2wtlU5e4b0L3JtV/5vpnbWKJHdcDCGn2JFuwKzDxHMFgf7SdAR3P9AZaNEI3n2bFym0Kx/Ujpm8=
+    - ARTIFACTS_KEY=$AWS_ACCESS_KEY_ID
+    - ARTIFACTS_SECRET=$AWS_SECRET_ACCESS_KEY
+    - ARTIFACTS_BUCKET=taqtiqa.io
+  matrix:
+    - ARCH=amd64 ACI_NAME=$(basename $TRAVIS_REPO_SLUG) ACI_ORG=$(dirname $TRAVIS_REPO_SLUG)
+before_install:
+  - git clone https://github.com/taqtiqa/ci.git
+  - cat ci/scripts/openssl.sh | sudo bash
+before_script:
+  - openssl aes-256-cbc -pass env:ACI_SECRET -in ./rkt-stacks-privatekeys.asc.enc -out ./rkt-stacks-privatekeys.asc -d -a
+script:
+  - cat ./rkt-jupyter.sh | sudo bash
+addons:
+  artifacts:
+    s3_region: "us-east-1" # defaults to "us-east-1"
+    paths:
+    - $(git ls-files -o | tr "\n" ":") #"${ACI_NAME}-${TRAVIS_TAG}-linux-${ARCH}.aci" and "${ACI_NAME}-${TRAVIS_TAG}-linux-${ARCH}.aci.asc"
+    debug: true
+    target_paths:
+    - /aci
 notifications:
   email:
     recipients:
       - coders@taqtiqa.com
     on_success: [always]
     on_failure: [always]
-
