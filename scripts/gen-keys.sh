@@ -30,6 +30,7 @@ set -exuo pipefail
 
 if [[ $# -gt 0 ]] ; then
   echo "Usage: gen-keys.sh"
+  echo "Example: gen-keys.sh"
   exit 1
 fi
 
