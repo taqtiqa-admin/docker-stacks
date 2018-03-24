@@ -44,6 +44,9 @@ GIT_NAME=$(basename $GIT_URL .git)
 
 PUBLIC_KEYRING="./${GIT_NAME}-publickeys.asc"
 
+# Version tagged keyring name
+eval PUBLIC_KEYRING_TAGGED=$(basename ${PUBLIC_KEYRING} .asc)-\$${TRAVIS_TAG}.asc
+
 function deployend() {
     export EXIT=$?
     if [[ $EXIT != 0 ]]; then
@@ -65,7 +68,7 @@ if [[ $TRAVIS == "true" ]]; then
     # Copy PUBLIC_KEYRING to DEPLOY_DIR folder ready to be deployed
     if [ -f ${PUBLIC_KEYRING} ]; then
       # Make a versioned backup of public keyrings - in case of emergency
-      rsync --checksum "${PUBLIC_KEYRING}" "${DEPLOY_DIR}/$(basename ${PUBLIC_KEYRING} .asc)-${TRAVIS_TAG}.asc"
+      rsync --checksum "${PUBLIC_KEYRING}" "${DEPLOY_DIR}/${PUBLIC_KEYRING_TAGGED}"
       # Only replace the existing public keyring if it is changed.
       rsync --checksum "${PUBLIC_KEYRING}" "${DEPLOY_DIR}/$(basename ${PUBLIC_KEYRING})"
       echo "A GPG public keyring is ready to deploy to GitHub Pages."
