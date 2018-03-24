@@ -57,10 +57,12 @@ do
     done
     # The `rkt image export ...` won't work without the braces.
     echo "The RKT_UUID is: $RKT_UUID"
-    rkt image export ${RKT_UUID} ./deploy/${NB_ACI} --overwrite
+    rkt image export ${RKT_UUID} ./deploy/${NB_ACI} --overwrite=true
     ./scripts/sign.sh ./deploy/${NB_ACI}
-    sudo ./ci/scripts/s3-deploy-rkt.sh
-    sudo rkt rm ${RKT_UUID}
+    ls -la
+    rkt list
+    cat ci/scripts/s3-deploy-rkt.sh | sudo bash
+    sudo rkt gc --grace-period=1s
     sudo find ./deploy -maxdepth 1 -type f -delete 
   }
 done
