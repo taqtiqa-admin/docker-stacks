@@ -59,6 +59,8 @@ do
     echo "The RKT_UUID is: $RKT_UUID"
     rkt image export ${RKT_UUID} ./deploy/${NB_ACI} --overwrite
     ./scripts/sign.sh ./deploy/${NB_ACI}
+    ./ci/scripts/s3-deploy-rkt.sh
+    rm -rf ./deploy/*
   }
 done
 ./scripts/gen-keys.sh ${BUILD_TAG}
