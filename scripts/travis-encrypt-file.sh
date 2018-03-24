@@ -81,6 +81,10 @@ pushd ${WORKING_DIR}
       # - used to sign files
       # openssl rand -base64 1000 | sha512sum | sed 's/ .*//' > ./${GIT_NAME}-secret
       export ACI_SECRET=`openssl rand -base64 1000 | sha512sum | sed 's/ .*//'`
+      echo "#################################################################"
+      echo "## ACI environment variable ACI_SECRET:"
+      echo ${ACI_SECRET}
+      echo "#################################################################"
       SEKRET_ENV_VAR="ACI_SECRET=${ACI_SECRET}"
 
       # encrypt given file using secret password

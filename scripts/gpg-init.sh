@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (C) 2017 TAQTIQA LLC. <http://www.taqtiqa.com>
+# Copyright (C) 2017-2018 TAQTIQA LLC. <http://www.taqtiqa.com>
 #
 #This program is free software: you can redistribute it and/or modify
 #it under the terms of the GNU Affero General Public License as published by
