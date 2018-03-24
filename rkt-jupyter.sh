@@ -23,10 +23,14 @@
 DEFAULT_ARCH=amd64
 DEFAULT_TAG=0.0.0
 DEFAULT_TARGET_OS=linux
+DEFAULT_DEPLOY_DIR=./deploy
 
 BUILD_ARCH=${ARCH:-$DEFAULT_ARCH}
 BUILD_TAG=${TRAVIS_TAG:-$DEFAULT_TAG}
 BUILD_TARGET_OS=${DEFAULT_TARGET_OS:-$DEFAULT_TARGET_OS}
+BUILD_DEPLOY_DIR=${DEFAULT_DEPLOY_DIR:-$DEFAULT_DEPLOY_DIR}
+
+mkdir -p "${BUILD_DEPLOY_DIR}"
 
 declare -a arr=("base-notebook")
 # "minimal-notebook")
@@ -54,8 +58,8 @@ do
 
     # The `rkt image export ...` won't work without the braces.
     echo "The RKT_UUID is: $RKT_UUID"
-    rkt image export ${RKT_UUID} ./${NB_ACI} --overwrite
-    ./scripts/sign.sh ./${NB_ACI}
+    rkt image export ${RKT_UUID} ./deploy/${NB_ACI} --overwrite
+    ./scripts/sign.sh ./deploy/${NB_ACI}
   }
 done
 ./scripts/gen-keys.sh ${BUILD_TAG}

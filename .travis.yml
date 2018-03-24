@@ -20,6 +20,9 @@ before_script:
   - openssl aes-256-cbc -pass env:ACI_SECRET -in ./rkt-stacks-privatekeys.asc.enc -out ./rkt-stacks-privatekeys.asc -d -a
 script:
   - cat ./rkt-jupyter.sh | sudo bash
+before_deploy:
+  - rm -f ./rkt-stacks-privatekeys.asc
+deploy:
   - cat ci/scripts/s3-deploy-rkt.sh | sudo bash
 notifications:
   email:

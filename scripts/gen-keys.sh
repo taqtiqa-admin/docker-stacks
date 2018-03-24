@@ -18,7 +18,6 @@
 #
 
 # NOTE:
-# This script relies on an environment variable for the version number.
 # Travis is the CI environment setup supporting encrypted environment variables.
 #
 # Sign a file with a private GPG keyring and password.
@@ -34,10 +33,11 @@ if [[ $# -lt 1 ]] ; then
   exit 1
 fi
 
-DEPLOY_DIR=.
 KEY_TAG=$1
 
-#mkdir -p "${DEPLOY_DIR}"
+DEFAULT_DEPLOY_DIR=./deploy
+
+BUILD_DEPLOY_DIR=${DEFAULT_DEPLOY_DIR:-$DEFAULT_DEPLOY_DIR}
 
 WORKING_DIR=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
 
@@ -66,14 +66,16 @@ if [[ ! $CI == "true" ]]; then
 fi
 
 if [[ $TRAVIS == "true" ]]; then
+  # Move up out of the ./scripts sub-folder
   pushd ${WORKING_DIR}/../
-    # Copy PUBLIC_KEYRING to DEPLOY_DIR folder ready to be deployed
+    mkdir -p "${BUILD_DEPLOY_DIR}"
+    # Copy PUBLIC_KEYRING to DEFAULT_DEPLOY_DIR folder ready to be deployed
     if [ -f ${PUBLIC_KEYRING} ]; then
       # Make a versioned backup of public keyrings - in case of emergency
-      rsync --checksum "${PUBLIC_KEYRING}" "${DEPLOY_DIR}/${PUBLIC_KEYRING_TAGGED}"
+      rsync --checksum "${PUBLIC_KEYRING}" "${DEFAULT_DEPLOY_DIR}/${PUBLIC_KEYRING_TAGGED}"
       # Only replace the existing public keyring if it is changed.
-      rsync --checksum "${PUBLIC_KEYRING}" "${DEPLOY_DIR}/$(basename ${PUBLIC_KEYRING})"
-      echo "A GPG public keyring is ready to deploy to GitHub Pages."
+      rsync --checksum "${PUBLIC_KEYRING}" "${DEFAULT_DEPLOY_DIR}/$(basename ${PUBLIC_KEYRING})"
+      echo "A GPG public keyring is ready to deploy."
     else
       echo "A GPG public keyring ${PUBLIC_KEYRING} NOT found!."
       exit 1
