@@ -32,14 +32,14 @@ BUILD_DEPLOY_DIR=${DEFAULT_DEPLOY_DIR:-$DEFAULT_DEPLOY_DIR}
 
 mkdir -p "${BUILD_DEPLOY_DIR}"
 
-declare -a arr=("base-notebook")
-# "minimal-notebook")
-# "scipy-notebook"
-# "r-notebook"
-# "tensorflow-notebook"
-# "datascience-notebook"
-# "pyspark-notebook"
-# "all-spark-notebook")
+declare -a arr=("base-notebook"
+"minimal-notebook")
+"scipy-notebook"
+"r-notebook"
+"tensorflow-notebook"
+"datascience-notebook"
+"pyspark-notebook"
+"all-spark-notebook")
 
 ## now loop through the above array
 for NB in "${arr[@]}"
@@ -55,7 +55,6 @@ do
     do
       export RKT_UUID="$line"
     done
-
     # The `rkt image export ...` won't work without the braces.
     echo "The RKT_UUID is: $RKT_UUID"
     rkt image export ${RKT_UUID} ./deploy/${NB_ACI} --overwrite
