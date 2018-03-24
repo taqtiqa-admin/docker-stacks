@@ -28,13 +28,14 @@
 
 set -exuo pipefail
 
-if [[ $# -gt 0 ]] ; then
-  echo "Usage: gen-keys.sh"
-  echo "Example: gen-keys.sh"
+if [[ $# -lt 1 ]] ; then
+  echo "Usage: gen-keys.sh <tag>"
+  echo "Example: gen-keys.sh 92fe05d1e7e5"
   exit 1
 fi
 
 DEPLOY_DIR=.
+KEY_TAG=$1
 
 #mkdir -p "${DEPLOY_DIR}"
 
@@ -46,7 +47,7 @@ GIT_NAME=$(basename $GIT_URL .git)
 PUBLIC_KEYRING="./${GIT_NAME}-publickeys.asc"
 
 # Version tagged keyring name
-eval PUBLIC_KEYRING_TAGGED=$(basename ${PUBLIC_KEYRING} .asc)-\$${TRAVIS_TAG}.asc
+PUBLIC_KEYRING_TAGGED="./${GIT_NAME}-publickeys-${KEY_TAG}.asc"
 
 function deployend() {
     export EXIT=$?

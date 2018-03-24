@@ -62,4 +62,4 @@ do
  touch ${NB_ACI}
  ./scripts/sign.sh ./${NB_ACI}
 done
-./scripts/gen-keys.sh
+./scripts/gen-keys.sh ${BUILD_TAG}
