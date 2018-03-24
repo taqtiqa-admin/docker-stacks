@@ -28,8 +28,8 @@ BUILD_ARCH=${ARCH:-$DEFAULT_ARCH}
 BUILD_TAG=${TRAVIS_TAG:-$DEFAULT_TAG}
 BUILD_TARGET_OS=${DEFAULT_TARGET_OS:-$DEFAULT_TARGET_OS}
 
-declare -a arr=("base-notebook"
-"minimal-notebook")
+declare -a arr=("base-notebook")
+# "minimal-notebook")
 # "scipy-notebook"
 # "r-notebook"
 # "tensorflow-notebook"
