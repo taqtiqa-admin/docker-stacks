@@ -21,7 +21,6 @@ before_script:
 script:
   - cat ./rkt-jupyter.sh | sudo bash
   - rm -f ./rkt-stacks-privatekeys.asc
-deploy:
   - cat ci/scripts/s3-deploy-rkt.sh | sudo bash
 notifications:
   email:
