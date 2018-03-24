@@ -45,21 +45,18 @@ do
   echo "#############################################################"
   echo "##  Start Processing ${NB} to ${NB_ACI}"
   echo "#############################################################"
-  # # or do whatever with individual element of the array
-  # stdbuf -oL rkt fetch --insecure-options=image docker://jupyter/${NB} --pull-policy=update | {
-  #   while IFS= read -r line
-  #   do
-  #     echo "$line"
-  #     export RKT_UUID="$line"
-  #   done
+  # or do whatever with individual element of the array
+  stdbuf -oL rkt fetch --insecure-options=image docker://jupyter/${NB} --pull-policy=update | {
+    while IFS= read -r line
+    do
+      echo "$line"
+      export RKT_UUID="$line"
+    done
 
-  #   # The `rkt image export ...` won't work without the braces.
-  #   echo "The RKT_UUID is: $RKT_UUID"
-  #   
-  #   rkt image export ${RKT_UUID} ./${NB_ACI} --overwrite
-  #   ./scripts/sign.sh ./${NB_ACI}
-  # }
- touch ${NB_ACI}
- ./scripts/sign.sh ./${NB_ACI}
+    # The `rkt image export ...` won't work without the braces.
+    echo "The RKT_UUID is: $RKT_UUID"
+    rkt image export ${RKT_UUID} ./${NB_ACI} --overwrite
+    ./scripts/sign.sh ./${NB_ACI}
+  }
 done
 ./scripts/gen-keys.sh ${BUILD_TAG}
