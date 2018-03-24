@@ -14,7 +14,8 @@ before_install:
   - git clone https://github.com/taqtiqa/ci.git
   - cat ci/scripts/install-openssl.sh | sudo bash
   - cat ci/scripts/install-rkt.sh | sudo bash
-  - cat ci/scripts/install-awscli.sh | sudo bash
+  - cat ci/scripts/install-awscli.sh | sudo -H bash
+  - export PATH=$PATH:$HOME/.local/bin
 before_script:
   - openssl aes-256-cbc -pass env:ACI_SECRET -in ./rkt-stacks-privatekeys.asc.enc -out ./rkt-stacks-privatekeys.asc -d -a
 script:
