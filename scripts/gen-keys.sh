@@ -28,7 +28,7 @@
 
 set -exuo pipefail
 
-if [[ $# -lt 1 ]] ; then
+if [[ $# -gt 0 ]] ; then
   echo "Usage: gen-keys.sh"
   exit 1
 fi
