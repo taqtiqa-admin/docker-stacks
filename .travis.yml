@@ -16,6 +16,10 @@ before_script:
   - openssl aes-256-cbc -pass env:ACI_SECRET -in ./rkt-stacks-privatekeys.asc.enc -out ./rkt-stacks-privatekeys.asc -d -a
 script:
   - cat ./rkt-jupyter.sh | sudo bash
+before_deploy:
+  - rm -rf ./ci
+  - export ARTIFACTS_PATHS="$(git ls-files -o | tr \"\\n\" \":\")"
+  - echo $ARTIFACTS_PATHS
 addons:
   artifacts:
     s3_region: "us-east-1" 
