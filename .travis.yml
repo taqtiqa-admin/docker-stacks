@@ -30,7 +30,11 @@ before_install:
 before_script:
   - openssl aes-256-cbc -pass env:ACI_SECRET -in ./rkt-stacks-privatekeys.asc.enc -out ./rkt-stacks-privatekeys.asc -d -a
 script:
-  - travis_wait cat ./rkt-jupyter.sh | sudo bash
+    # Builds are silent+long so tickle the travis-ci log
+  - while sleep 60; do echo "==[ Running $(date) ]=="; done &
+  - cat ./rkt-jupyter.sh | sudo bash
+    # Kill while loop (the last process executed in the background)
+  - kill $!
 notifications:
   email:
     recipients:
