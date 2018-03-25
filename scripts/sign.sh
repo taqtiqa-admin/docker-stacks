@@ -26,6 +26,12 @@
 # Usage: sign <file>
 #
 
+echo "#########################################################"
+echo "##"
+echo "##  STARTING: $0"
+echo "##"
+echo "#########################################################"
+
 set -exuo pipefail
 
 FILENAME_TO_SIGN=$1
@@ -77,7 +83,7 @@ function signend() {
 
 trap signend EXIT
 
-sudo chown -R /home/travis/.gnupg/gpg.conf
+sudo chown -R travis:travis /home/travis/.gnupg/gpg.conf
 chmod 600 ~/.gnupg/gpg.conf
 chmod 700 ~/.gnupg
 
