@@ -24,7 +24,7 @@ before_install:
   - export PATH=$PATH:$HOME/.local/bin
   - git clone https://github.com/taqtiqa/ci.git
   - cat ci/scripts/install-openssl.sh | sudo bash
-  - cat ci/scripts/install-rkt.sh | sudo bash
+  - cat ci/scripts/install-rkt.sh | bash
   - cat ci/scripts/install-awscli.sh | sudo -H bash
   - cat ./scripts/gen-keys.sh | sudo bash -s $TRAVIS_BRANCH
   - export PATH=$PATH:$HOME/.local/bin
@@ -33,7 +33,7 @@ before_script:
 script:
   # Builds are silent+long so tickle the travis-ci log
   #- (while sleep 60; do echo "==[ Running $(date) ]=="; done)&
-  - travis_wait $(cat ./rkt-jupyter.sh | sudo bash)
+  - cat ./rkt-jupyter.sh | sudo bash
   # Kill while loop (the last process executed in the background)
   #- kill $!
 notifications:
