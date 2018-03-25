@@ -57,18 +57,25 @@ do
   echo "##  Start Processing ${NB} to ${NB_ACI}"
   echo "#############################################################"
   # or do whatever with individual element of the array
-  stdbuf -oL rkt fetch --insecure-options=image docker://jupyter/${NB} --pull-policy=update | {
+  #stdbuf -oL rkt fetch --insecure-options=image docker://jupyter/${NB} | {
+  count=0
+  unbuffer rkt fetch --insecure-options=image docker://jupyter/${NB} | {
     while IFS= read -r line
     do
+      if [ $(( ((count+=1)) % 100 )) -eq 0 ] ; then
+         echo "${count}: Working... $(data)"
+         echo ${line}
+      fi
       export RKT_UUID="$line"
     done
-    # The `rkt image export ...` won't work without the braces.
-    echo "The RKT_UUID is: $RKT_UUID"
-    rkt image export ${RKT_UUID} ./deploy/${NB_ACI} --overwrite=true
-    ./scripts/sign.sh ./deploy/${NB_ACI}
-    cat ci/scripts/s3-deploy-rkt.sh | sudo bash >/dev/null
-    sudo rkt gc --grace-period=1s
-    sudo find ./deploy -maxdepth 1 -type f -delete
   }
+  # The `rkt image export ...` won't work without the braces.
+  echo "The RKT_UUID is: $RKT_UUID"
+  rkt image export ${RKT_UUID} ./deploy/${NB_ACI} --overwrite=true
+  ./scripts/sign.sh ./deploy/${NB_ACI}
+  cat ci/scripts/s3-deploy-rkt.sh | sudo bash 
+  sudo rkt gc --grace-period=1s
+  sudo find ./deploy -maxdepth 1 -type f -delete
 done
+
 ./scripts/gen-keys.sh ${BUILD_TAG}
