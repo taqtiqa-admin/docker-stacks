@@ -41,8 +41,9 @@ mkdir -p "${BUILD_DEPLOY_DIR}"
 declare -a arr=(${BUILD_JOBS})
 
 ## now loop through the above array
-for NB in "${arr[@]}"
+for NB_NAME in "${arr[@]}"
 do
+  eval NB=${NB_NAME}
   # Name pattern: ${NB}-${TRAVIS_TAG}-linux-${ARCH}.aci
   export NB_ACI="${NB}-${BUILD_TAG}-${BUILD_TARGET_OS}-${BUILD_ARCH}.aci"
   echo "#############################################################"
