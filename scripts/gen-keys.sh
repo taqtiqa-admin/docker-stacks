@@ -66,8 +66,8 @@ if [[ ! $CI == "true" ]]; then
 fi
 
 if [[ $TRAVIS == "true" ]]; then
-  # Move up out of the ./scripts sub-folder
-  pushd ${WORKING_DIR}/../
+  # Some times we may need to ./../ here....
+  pushd ${WORKING_DIR}
     mkdir -p "${BUILD_DEPLOY_DIR}"
     # Copy PUBLIC_KEYRING to DEFAULT_DEPLOY_DIR folder ready to be deployed
     if [ -f ${PUBLIC_KEYRING} ]; then
