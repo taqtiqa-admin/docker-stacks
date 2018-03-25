@@ -32,14 +32,13 @@ BUILD_DEPLOY_DIR=${DEFAULT_DEPLOY_DIR:-$DEFAULT_DEPLOY_DIR}
 
 mkdir -p "${BUILD_DEPLOY_DIR}"
 
-declare -a arr=("base-notebook"
-"minimal-notebook"
-"scipy-notebook"
-"r-notebook"
-"tensorflow-notebook"
-"datascience-notebook"
-"pyspark-notebook"
-"all-spark-notebook")
+# declare -a arr=('base-notebook' 'minimal-notebook' 'scipy-notebook'
+# 'r-notebook' 'tensorflow-notebook' 
+# 'datascience-notebook' 'pyspark-notebook' 'all-spark-notebook')
+# 
+# Example: 
+# BUILD_JOBS would be defined in .travis.yml
+declare -a arr=(${BUILD_JOBS})
 
 ## now loop through the above array
 for NB in "${arr[@]}"
@@ -59,11 +58,9 @@ do
     echo "The RKT_UUID is: $RKT_UUID"
     rkt image export ${RKT_UUID} ./deploy/${NB_ACI} --overwrite=true
     ./scripts/sign.sh ./deploy/${NB_ACI}
-    ls -la
-    rkt list
-    cat ci/scripts/s3-deploy-rkt.sh | sudo bash
+    cat ci/scripts/s3-deploy-rkt.sh | sudo bash >/dev/null
     sudo rkt gc --grace-period=1s
-    sudo find ./deploy -maxdepth 1 -type f -delete 
+    sudo find ./deploy -maxdepth 1 -type f -delete
   }
 done
 ./scripts/gen-keys.sh ${BUILD_TAG}
