@@ -19,6 +19,13 @@
 
 # # https://coreos.com/rkt/docs/latest/signing-and-verification-guide.html#distributing-images-via-meta-discovery
 
+echo "#########################################################"
+echo "##"
+echo "##  STARTING: $0"
+echo "##"
+echo "#########################################################"
+
+set -exuo pipefail
 
 DEFAULT_ARCH=amd64
 DEFAULT_TAG=0.0.0

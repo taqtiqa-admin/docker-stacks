@@ -77,6 +77,10 @@ function signend() {
 
 trap signend EXIT
 
+sudo chown -R /home/travis/.gnupg/gpg.conf
+chmod 600 ~/.gnupg/gpg.conf
+chmod 700 ~/.gnupg
+
 pushd ${WORKING_DIR}
   pushd ../
     if [ -f ${PRIVATE_KEY} ]; then

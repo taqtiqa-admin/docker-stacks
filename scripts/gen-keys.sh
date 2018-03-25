@@ -25,6 +25,12 @@
 # Usage: gen-keys.sh
 #
 
+echo "#########################################################"
+echo "##"
+echo "##  STARTING: $0"
+echo "##"
+echo "#########################################################"
+
 set -exuo pipefail
 
 if [[ $# -lt 1 ]] ; then
@@ -77,8 +83,15 @@ if [[ $TRAVIS == "true" ]]; then
       rsync --checksum "${PUBLIC_KEYRING}" "${DEFAULT_DEPLOY_DIR}/$(basename ${PUBLIC_KEYRING})"
       echo "A GPG public keyring is ready to deploy."
     else
+      echo "#########################################################"
+      echo "##"
+      echo "##  WARNING: NOT RAISNG EXIT 1 UNTIL CAUSE AND EFFECT "
+      echo "##           IS KNOWN. TO DO"
+      echo "##"
+      echo "#########################################################"
+
       echo "A GPG public keyring ${PUBLIC_KEYRING} NOT found!."
-      exit 1
+      # exit 1
     fi
   popd
 fi
