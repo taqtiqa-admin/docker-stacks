@@ -29,6 +29,7 @@
 set -exuo pipefail
 
 FILENAME_TO_SIGN=$1
+FILENAME_TO_SIGN_FOLDER=$(dirname $1)
 
 if [[ $# -lt 1 ]] ; then
   echo "Usage: sign <file>"

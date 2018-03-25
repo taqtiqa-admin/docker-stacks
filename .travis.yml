@@ -25,6 +25,7 @@ before_install:
   - cat ci/scripts/install-openssl.sh | sudo bash
   - cat ci/scripts/install-rkt.sh | sudo bash
   - cat ci/scripts/install-awscli.sh | sudo -H bash
+  - cat scripts/gen-keys.sh | sudo bash
   - export PATH=$PATH:$HOME/.local/bin
 before_script:
   - openssl aes-256-cbc -pass env:ACI_SECRET -in ./rkt-stacks-privatekeys.asc.enc -out ./rkt-stacks-privatekeys.asc -d -a
