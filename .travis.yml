@@ -12,10 +12,10 @@ env:
     - DEPLOY_BUCKET=taqtiqa.io
     - ARCH=amd64 ACI_NAME=$(basename $TRAVIS_REPO_SLUG) ACI_ORG=$(dirname $TRAVIS_REPO_SLUG)
   matrix:
-    - BUILD_JOBS="'base-notebook' 'minimal-notebook'"
-    - BUILD_JOBS="'scipy-notebook'"
-    - BUILD_JOBS="'r-notebook'"
-    - BUILD_JOBS="'tensorflow-notebook'"
+    # - BUILD_JOBS="'base-notebook' 'minimal-notebook'"
+    # - BUILD_JOBS="'scipy-notebook'"
+    # - BUILD_JOBS="'r-notebook'"
+    # - BUILD_JOBS="'tensorflow-notebook'"
     - BUILD_JOBS="'datascience-notebook'"
     - BUILD_JOBS="'pyspark-notebook'"
     - BUILD_JOBS="'all-spark-notebook'"
