@@ -27,6 +27,12 @@
 # NOTE: to generate a public/private key use the following commands:
 #
 
+echo "#########################################################"
+echo "##"
+echo "##  STARTING: $0"
+echo "##"
+echo "#########################################################"
+
 set -exuo pipefail
 
 TMP_GPG_HOME=$( mktemp -d -t 'XXXX' )

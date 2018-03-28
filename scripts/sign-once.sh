@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (C) 2018 TAQTIQA LLC. <http://www.taqtiqa.com>
+# Copyright (C) 2017-2018 TAQTIQA LLC. <http://www.taqtiqa.com>
 #
 #This program is free software: you can redistribute it and/or modify
 #it under the terms of the GNU Affero General Public License as published by
@@ -26,6 +26,12 @@
 #
 # NOTE: to generate a public/private key use the following commands:
 #
+
+echo "#########################################################"
+echo "##"
+echo "##  STARTING: $0"
+echo "##"
+echo "#########################################################"
 
 set -exuo pipefail
 

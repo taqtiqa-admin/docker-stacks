@@ -17,7 +17,7 @@ For any of the Rkt image names, `IMG`:
 1. `all-spark-notebook`
 
 ````bash
-IMG=all-spark-notebook
+IMG=base-notebook
 IMG_VER=8.4.4+0
 
 sudo rkt trust --prefix=taqtiqa.io/$IMG

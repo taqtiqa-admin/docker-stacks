@@ -21,6 +21,12 @@
 # This script sets up keys for signing ACI artifacts built on Travis CI
 #
 
+echo "#########################################################"
+echo "##"
+echo "##  STARTING: $0"
+echo "##"
+echo "#########################################################"
+
 set -exuo pipefail
 
 if [[ $# -gt 0 ]] ; then
