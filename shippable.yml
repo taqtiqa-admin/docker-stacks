@@ -1,4 +1,4 @@
-language: generic
+language: ruby
 dist: trusty
 sudo: true
 if: tag IS present
@@ -7,15 +7,17 @@ cache:
   - apt
 env:
   global:
+    # AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
+    - secure: h8Lp0i5qkIr0q35JTT6VmFnhAQk96s9l3MzsIJzwLKYLl3aPJv7Hex5QyMYoTjX1xEumwugZj8LPmuXgvAn65I4P4GsP5ffcfE7Y2qLefRNBH6wL9jIF5nu/FlY3aHNwPYEM7TZTPtBUjSRaeJiPNLkTAK7OLTinDAYpJwJB/pIHLoI+JLanEXdPPTYKvkne/qTlsbUB9Q+Zf0dAUNPne09b45OL1Ga+vLISLDviIyEQhJPzBVvJ4USixZRGGaVnp7QzRP/tIqPTqxHWKqoDTRMvaXbsq/b42y1VjxL594mqDCRt7w6AeMwA8mwRZfTrJo1EHAsrjUUCyAmsNxyaBA==
     # ACI_SECRET
-    - secure: Q9wzEBr9E/Evdd2HcK7X8F9wgDf3KXIhW/vxqHCIGwnbfiImAyHWGKhLQxKVK8lGma4N7KFN3S5dW5RcRWR2RlunA8ENdTuLlXSwQwygA197B6/CvsgE959steTMoDmX6QdBBLfDUDtx9zWUQPl5PbJ4A7mJrOU1vR6JpG7AzTUieQD7rK35b2SseoiwvxGaHoP2+JuSsCVIdvbFc67DjX8xKhdR7yKx7bzkXeja49ngiBYuS+LCArtMEltkJFoo/sr7TyqTqr/gxm4ZLWcJkHMgpxfmbhvURJhUcsMQbAKZeF3AWdwvILhKDQUyzNCOkx0lTJfeOHnACnfn/vtnMGTNs4lmCsspEEHaS/KKbNozTwIigjLXekx/t9YK46jTjmIL8PCoBFiCRmFH01NOArjRSZ0nwOrXFf8Hf12mXshr00DKxTWyeLmA4fqu7nc092WTyw4k3SKmFn7va64p8WXqlCusFo4LSMHCF1n/QMciubQNMaEvPCSexaTKUlDoV9aJ/jD+zeEohEEwj3D7r/5exnLSQS1zSRpKAusD4BMdlOZqc7reaWEiRpA8eyTjbXwr6YebemLKNhIDIhn6tnioNXcyZBD8odn2B5PLSLLYH7zvJL2dpvquzumaDQTguOO3w1Z3QsiohC4sdqEXT1W/Pvy8x5usZt30dsMq3wg=
+    - secure: regenerate
     - DEPLOY_BUCKET=taqtiqa.io
     - ARCH=amd64 ACI_NAME=$(basename $TRAVIS_REPO_SLUG) ACI_ORG=$(dirname $TRAVIS_REPO_SLUG)
   matrix:
-    - BUILD_JOBS="'base-notebook' 'minimal-notebook'"
-    - BUILD_JOBS="'scipy-notebook'"
-    - BUILD_JOBS="'r-notebook'"
-    - BUILD_JOBS="'tensorflow-notebook'"
+    # - BUILD_JOBS="'base-notebook' 'minimal-notebook'"
+    # - BUILD_JOBS="'scipy-notebook'"
+    # - BUILD_JOBS="'r-notebook'"
+    # - BUILD_JOBS="'tensorflow-notebook'"
     - BUILD_JOBS="'datascience-notebook'"
     - BUILD_JOBS="'pyspark-notebook'"
     - BUILD_JOBS="'all-spark-notebook'"
