@@ -42,10 +42,15 @@ fi
 KEY_TAG=$1
 
 DEFAULT_DEPLOY_DIR=./deploy
+# The -v option requires bash 4.2 or higher
+if [[ ! -v CI ]]; then
+   CI="false"
+fi
 DEFAULT_CI=${SHIPPABLE:-$CI}
+DEFAULT_CI=${TRAVIS:-$DEFAULT_CI}
 
 BUILD_DEPLOY_DIR=${DEFAULT_DEPLOY_DIR:-$DEFAULT_DEPLOY_DIR}
-BUILD_CI=${CI:-$DEFAULT_CI}
+BUILD_CI=${DEFAULT_CI:-$DEFAULT_CI}
 
 WORKING_DIR=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
 
