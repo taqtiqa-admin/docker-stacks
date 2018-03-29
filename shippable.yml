@@ -5,9 +5,9 @@ if: tag IS present
 cache:
   - pip
   - apt
-branches:
-  only:
-    - master
+# branches:
+#   only:
+#     - master
 env:
   global:
     # AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
