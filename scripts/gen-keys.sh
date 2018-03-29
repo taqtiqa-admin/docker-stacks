@@ -43,10 +43,10 @@ KEY_TAG=$1
 
 DEFAULT_DEPLOY_DIR=./deploy
 # The -v option requires bash 4.2 or higher
-if [[ -v SHIPPABLE ]]; then
+if [[ ! -v SHIPPABLE ]]; then
    export CI="true"
 fi
-if [[ -v TRAVIS ]]; then
+if [[ ! -v TRAVIS ]]; then
    export CI="true"
 fi
 DEFAULT_CI=${SHIPPABLE:-$CI}
