@@ -42,8 +42,10 @@ fi
 KEY_TAG=$1
 
 DEFAULT_DEPLOY_DIR=./deploy
+DEFAULT_CI=${SHIPPABLE:-"false"}
 
 BUILD_DEPLOY_DIR=${DEFAULT_DEPLOY_DIR:-$DEFAULT_DEPLOY_DIR}
+BUILD_CI=${CI:-$DEFAULT_CI}
 
 WORKING_DIR=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
 
@@ -66,7 +68,7 @@ function deployend() {
 
 trap deployend EXIT
 
-if [[ ! $CI == "true" ]]; then
+if [[ ! ${BUILD_CI} == "true" ]]; then
   echo "Not in a CI environment. Do not Deploy."
   exit 1
 fi

@@ -12,3 +12,17 @@ env:
 # In Travis, use the following line and it will output a decrypted file
 before_script:
   - openssl aes-256-cbc -pass env:ACI_SECRET -in ./rkt-stacks-publickeys.asc.enc -out ./rkt-stacks-publickeys.asc -d -a
+Local: 2018-03-29_21:38:32AEDT  UTC: 2018-03-29_10:38:32
+# Env variable ACI_SECRET=<s3Kr3t> for ./rkt-stacks-privatekeys.asc
+env:
+  - secure: IzangTqTrMF4IutGbIQwUAyunN5Y4LAC5iVFKmY1ZVH7QHxEhVML7Hl6CzZgOdZwONGPOaB0p4Jz1kRVqD6OTXtqGK8INN9gfYsD2kWvBIDvSrEZwkvfBk39Xit/KD3WRComvWrDo5DIzy7ymetVXQbIs6KjJjGgBNipgagCMpxy1UqJfa2Icqee4J+gztywJGQCzwx9cqK9pNI4Br7uoBNwEqfxNr8d9yAnT/aks6nChLRnS+swPIQwgLWxhZtKD14cDJ4NeIUMlVdUUYiN/JH9bEC3ihb4PgLMC5FLXoXqSfam++woyiJM3V34U0ifkWmpUBDuD0u4eEJEDe5ienlRsMEcp+4kypyMx3Pb2zOAQEFqeuczS+9E7VYYILIHQXXTihW4tWCCdRz/ihJQw+ee6bDEoS4JqgzAlWsPrezUxxU5k/AzTBKSq0gXPS7FmrVqPP+EntIqRm1bfCYl9dA0UbMG0vHiBKgpKDbp4v+0t7od7yUc9Sf0DVrHMaXea2iT1jkWKutAjkSAJKmGYbi3JJx774rHnogEh3OYrY8VZf9Swvyl3M9QAlN0uqTpDPyHhYdaROJUk2YKcHeS1P1R7sq8dNdBU7jxYdkIjM+CiL+J2nJ/ab3zrNI9hOgjmuSgxvEatQx6nmxEBx6u5vHHGvlqw/lLDNW35MwbDXA=
+# In Travis, use the following line and it will output a decrypted file
+before_script:
+  - openssl aes-256-cbc -pass env:ACI_SECRET -in ./rkt-stacks-privatekeys.asc.enc -out ./rkt-stacks-privatekeys.asc -d -a
+Local: 2018-03-29_21:38:32AEDT  UTC: 2018-03-29_10:38:32
+# Env variable ACI_SECRET=<s3Kr3t> for ./rkt-stacks-publickeys.asc
+env:
+  - secure: BTAAbKfDs4fsrwLPuiKLAHCY4LlTZEyCbAMYoti2YNWrL8qn7rNNZ7Dr+dpb6mfuT62nvZPpdv+pNBty4AjXp4LiC2LZe/cvezyTEaH6k5G3XoEdgCgbzJGGud3fJqPpRIKYhfsZ13PpVRxoXmuOkW87ksD74G0+M+CRU3u7uHlDwH6as14tbx//pMlgeATdNEKdqslUUb+NsuNWLedqM05uNfYH6N+Ogy9Gg78jnicEVuTBiBA2qM2+NKk2Z5vvqG2oMCiUrDCcTI8bECNRGSzPZWz/xhuzYwi8IgzJBjbX0HiKTxv/SMBo73eu8Edj/r1DyBbfzX0qk/iRpW9edGYbOYE6FB5joJ1JgQPU02SIFnmmHMcnhNzkutaxwkPek1xK7crpqoaL+ywrkvogSlFvBG71mKibd5Z3WVrNmIAzmbpLqygVHm3fV8uZudhnO4hjR4ISwrqVe3HpqgCvv9nUUpOzakahbnQx8Qba7jkX607lGEGjLSQ8YZHoEFEjtmsWvKfmNQXMeov9+8abQp8B7v3fUQH80miw00TPxG8Zvkbey7wT8hv03JUFK/tgkiG9mD8pGLn12ePEtyKbenzlofSfGgGAm27du5MrPoG2mqGjboIOmooVh3HwE+55+zrXsCLkBfO4T4zt3gXhZX6K9pDwfIBgyyPkFhurtoo=
+# In Travis, use the following line and it will output a decrypted file
+before_script:
+  - openssl aes-256-cbc -pass env:ACI_SECRET -in ./rkt-stacks-publickeys.asc.enc -out ./rkt-stacks-publickeys.asc -d -a

@@ -1,4 +1,4 @@
-language: ruby
+language: none
 dist: trusty
 sudo: true
 if: tag IS present
@@ -10,8 +10,9 @@ env:
     # AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
     - secure: h8Lp0i5qkIr0q35JTT6VmFnhAQk96s9l3MzsIJzwLKYLl3aPJv7Hex5QyMYoTjX1xEumwugZj8LPmuXgvAn65I4P4GsP5ffcfE7Y2qLefRNBH6wL9jIF5nu/FlY3aHNwPYEM7TZTPtBUjSRaeJiPNLkTAK7OLTinDAYpJwJB/pIHLoI+JLanEXdPPTYKvkne/qTlsbUB9Q+Zf0dAUNPne09b45OL1Ga+vLISLDviIyEQhJPzBVvJ4USixZRGGaVnp7QzRP/tIqPTqxHWKqoDTRMvaXbsq/b42y1VjxL594mqDCRt7w6AeMwA8mwRZfTrJo1EHAsrjUUCyAmsNxyaBA==
     # ACI_SECRET
-    - secure: regenerate
+    - secure: HMkFyuvpI7590lcaVBO5k9S57QvCtxsX9oC3zggmaWd44fqqxahrk0kpGOGhLwsR45diGDqhOuKL+F67HKnipwU8InuQRtyvwRHBm3N68j6KlG8aa4YGqq6m2xO8vek1dYxXfk7os5oQwOZMCysDlEYrnKlRp49U61K54qcNJLrZUnv/2WixDn28X2w5hbFZYurlJ9NykiISOxlewANTzl+OuaWQTmnUVcGWAWxUid1nOXK1UvVmHvAGw4T+7Cs4lV/P9WO7xt6X+EbRddTeXgkGmnkbNdygd7LYCiSVm7PyDuKWXjcHaTAgC7/5C3KadKRGCXkbluR/fp6Il1nDkA==    
     - DEPLOY_BUCKET=taqtiqa.io
+    - DEPLOY_REGION=
     - ARCH=amd64 ACI_NAME=$(basename $TRAVIS_REPO_SLUG) ACI_ORG=$(dirname $TRAVIS_REPO_SLUG)
   matrix:
     # - BUILD_JOBS="'base-notebook' 'minimal-notebook'"

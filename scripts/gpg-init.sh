@@ -64,10 +64,13 @@ function gpginitend {
 trap gpginitend ERR
 
 WORKING_DIR=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
+chown -R $(whoami):$(whoami) ${WORKING_DIR}
+chmod 600 ${WORKING_DIR}/*
+chmod 700 ${WORKING_DIR}
 
 TMP_PRIVATE_KEYRING="${WORKING_DIR}/rkt.sec"
 TMP_PUBLIC_KEYRING="${WORKING_DIR}/rkt.pub"
-touch ${TMP_PUBLIC_KEYRING}
+touch ${TMP_PRIVATE_KEYRING}
 touch ${TMP_PUBLIC_KEYRING}
 
 if [[ ! -f ${PRIVATE_KEY} ]]; then
