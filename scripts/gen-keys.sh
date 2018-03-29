@@ -78,12 +78,12 @@ function deployend() {
 
 trap deployend EXIT
 
-if [[ ! ${BUILD_CI} == "true" ]]; then
+if [[ ! ${BUILD_CI} == true ]]; then
   echo "Not in a CI environment. Do not Deploy."
   exit 1
 fi
 
-if [[ $CI == "true" ]]; then
+if [[ $CI == true ]]; then
   # Some times we may need to ./../ here....
   pushd ${WORKING_DIR}
     mkdir -p "${BUILD_DEPLOY_DIR}"
