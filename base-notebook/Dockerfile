@@ -1,9 +1,9 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 
-# Ubuntu 16.04 (xenial) from 2017-07-23
-# https://github.com/docker-library/official-images/commit/0ea9b38b835ffb656c497783321632ec7f87b60c
-FROM ubuntu@sha256:84c334414e2bfdcae99509a6add166bbb4fa4041dc3fa6af08046a66fed3005f
+# Ubuntu 16.04 (xenial) from 2018-02-28
+# https://github.com/docker-library/official-images/commit/8728671fdca3dfc029be4ab838ab5315aa125181
+FROM ubuntu:xenial-20180228@sha256:e348fbbea0e0a0e73ab0370de151e7800684445c509d46195aef73e090a49bd6
 
 LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 
@@ -77,10 +77,12 @@ RUN cd /tmp && \
     fix-permissions /home/$NB_USER
 
 # Install Jupyter Notebook and Hub
+# Issue #589: Force tornado < 5.0 until various zmq dependencies are resolved upstream
 RUN conda install --quiet --yes \
-    'notebook=5.2.*' \
+    'notebook=5.4.*' \
     'jupyterhub=0.8.*' \
     'jupyterlab=0.31.*' \
+    'tornado=4.*' \
     && conda clean -tipsy && \
     jupyter labextension install @jupyterlab/hub-extension@^0.8.0 && \
     npm cache clean && \

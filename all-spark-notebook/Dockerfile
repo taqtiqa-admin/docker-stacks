@@ -23,10 +23,10 @@ USER $NB_UID
 
 # R packages
 RUN conda install --quiet --yes \
-    'r-base=3.3.2' \
-    'r-irkernel=0.7*' \
+    'r-base=3.4.1' \
+    'r-irkernel=0.8*' \
     'r-ggplot2=2.2*' \
-    'r-sparklyr=0.5*' \
+    'r-sparklyr=0.7*' \
     'r-rcurl=1.95*' && \
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
@@ -34,7 +34,7 @@ RUN conda install --quiet --yes \
 
 # Apache Toree kernel
 RUN pip install --no-cache-dir \
-    https://dist.apache.org/repos/dist/dev/incubator/toree/0.2.0/snapshots/dev1/toree-pip/toree-0.2.0.dev1.tar.gz \
+    https://dist.apache.org/repos/dist/dev/incubator/toree/0.2.0-incubating-rc3/toree-pip/toree-0.2.0.tar.gz \
     && \
     jupyter toree install --sys-prefix && \
     rm -rf /home/$NB_USER/.local && \
