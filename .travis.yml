@@ -8,9 +8,10 @@ cache:
 env:
   global:
     # ACI_SECRET
-    - secure: Q9wzEBr9E/Evdd2HcK7X8F9wgDf3KXIhW/vxqHCIGwnbfiImAyHWGKhLQxKVK8lGma4N7KFN3S5dW5RcRWR2RlunA8ENdTuLlXSwQwygA197B6/CvsgE959steTMoDmX6QdBBLfDUDtx9zWUQPl5PbJ4A7mJrOU1vR6JpG7AzTUieQD7rK35b2SseoiwvxGaHoP2+JuSsCVIdvbFc67DjX8xKhdR7yKx7bzkXeja49ngiBYuS+LCArtMEltkJFoo/sr7TyqTqr/gxm4ZLWcJkHMgpxfmbhvURJhUcsMQbAKZeF3AWdwvILhKDQUyzNCOkx0lTJfeOHnACnfn/vtnMGTNs4lmCsspEEHaS/KKbNozTwIigjLXekx/t9YK46jTjmIL8PCoBFiCRmFH01NOArjRSZ0nwOrXFf8Hf12mXshr00DKxTWyeLmA4fqu7nc092WTyw4k3SKmFn7va64p8WXqlCusFo4LSMHCF1n/QMciubQNMaEvPCSexaTKUlDoV9aJ/jD+zeEohEEwj3D7r/5exnLSQS1zSRpKAusD4BMdlOZqc7reaWEiRpA8eyTjbXwr6YebemLKNhIDIhn6tnioNXcyZBD8odn2B5PLSLLYH7zvJL2dpvquzumaDQTguOO3w1Z3QsiohC4sdqEXT1W/Pvy8x5usZt30dsMq3wg=
+    - secure: qshAZHH1BcRG0vTuFHOynKpFkHPhSXoFoSiad3LR1hToJDZM1pj+YkcF9qwNB8n+cj0KfOCKGjLgzH0vGmPTH2jEi2k5DHdFDpb7ZsLyF6jeL5BGYkhNWLha5epvurOcSRcqHPgE0NRTNAUHSSSwFL2PnbzgEihlYJEng7FjjnPS4FBTBHxU4SQGIe9t9azZfGNyLpkXnn26iNMKVE9jol6y4RnzXdA7lwssWTi5g/5lmyb5Q4++0O1W9rmDUEuQyvwHXudrRKK8x8qeTnsr1z2mC8MU4L3n/ThgG0pPCG81gze1s0lyDxMlH9RQrkR8NkCzAY5yXVUnvPuQbguKQi6ubn0bKAiVHibYB4V9YL+/d7K6Og+D+n4ZvWzeP/JgiIjh3k8l+y6YTxCq+VtDbxfTM6cZHuIy8HSZBbCZ3EnsmxOBwjw4SZeD3Vrzkqu1WRDsT0bS7l5CaAlhgMnNLguBfyWs3fXDZDtwrhIWn26ZNVWrVWtx+UsWcPoGpKyXPMdIHyymB9I1Yp+tEqIg80zK5gbX54SCskoepeE6lqhhX5Q3YO/iTByKpovALRlhJhVsOgjAyj4acTFqtOUCBKzM90Ebivbx9B8uN/i1QGNffUihMrI9658Vu0E8XmxZGRYVN817BFgK4p2akOrKirYi33JYK3bf/5l9aEPRvIk=
     - DEPLOY_BUCKET=taqtiqa.io
     - ARCH=amd64 ACI_NAME=$(basename $TRAVIS_REPO_SLUG) ACI_ORG=$(dirname $TRAVIS_REPO_SLUG)
+    - DEBIAN_FRONTEND=noninteractive
   matrix:
     - BUILD_JOBS="'base-notebook' 'minimal-notebook'"
     - BUILD_JOBS="'scipy-notebook'"
@@ -21,7 +22,8 @@ env:
     - BUILD_JOBS="'all-spark-notebook'"
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install python3
+  - sudo apt-get upgrade -qq
+  - sudo apt-get install python3 gdebi-core
   - export PATH=$PATH:$HOME/.local/bin
   - git clone https://github.com/taqtiqa/ci.git
   - cat ci/scripts/install-openssl.sh | sudo bash

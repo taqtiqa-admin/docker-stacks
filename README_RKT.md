@@ -54,3 +54,18 @@ or
 ````bash
 sudo rkt run --dns 8.8.8.8 --net=host --insecure-options=image --interactive ./image-name-0.0.0-0-linux-amd64.aci --exec bash
 ````
+
+# Dev
+Adding a new CI build service will requires the creation of new private key, used to sign the images.
+The reason is because the private key is:
+- encrypted with a randomly generated password which is not stored (after it is encrypted by the build service and added to the build service configuration) 
+- committed to the repository so it can be decrypted in the build script and sign the ACI files
+- decrypting across build services requires they all have the SCI decryption secret encrypted with their private key.
+
+To create a new key and obtain the secret used to decrypt it:
+````bash
+./scripts/travis.sh
+./scripts/sign.sh rkt-stacks-traviskey-public.pem
+echo $ACI_SECRET
+````
+The secret 

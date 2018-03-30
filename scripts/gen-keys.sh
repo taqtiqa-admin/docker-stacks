@@ -42,8 +42,20 @@ fi
 KEY_TAG=$1
 
 DEFAULT_DEPLOY_DIR=./deploy
+# The -v option requires bash 4.2 or higher
+if [[ ! -v SHIPPABLE ]]; then
+  # export SHIPPABLE='false'
+   export CI="true"
+fi
+if [[ ! -v TRAVIS ]]; then
+  # export TRAVIS='false'
+   export CI="true"
+fi
+DEFAULT_CI=${SHIPPABLE:-$CI}
+DEFAULT_CI=${TRAVIS:-$DEFAULT_CI}
 
 BUILD_DEPLOY_DIR=${DEFAULT_DEPLOY_DIR:-$DEFAULT_DEPLOY_DIR}
+BUILD_CI=${DEFAULT_CI:-$DEFAULT_CI}
 
 WORKING_DIR=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
 
@@ -66,12 +78,12 @@ function deployend() {
 
 trap deployend EXIT
 
-if [[ ! $CI == "true" ]]; then
+if [[ ! ${BUILD_CI} == true ]]; then
   echo "Not in a CI environment. Do not Deploy."
   exit 1
 fi
 
-if [[ $TRAVIS == "true" ]]; then
+if [[ $CI == true ]]; then
   # Some times we may need to ./../ here....
   pushd ${WORKING_DIR}
     mkdir -p "${BUILD_DEPLOY_DIR}"

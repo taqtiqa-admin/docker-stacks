@@ -83,9 +83,11 @@ function signend() {
 
 trap signend EXIT
 
-sudo chown -R travis:travis /home/travis/.gnupg/gpg.conf
-chmod 600 ~/.gnupg/gpg.conf
-chmod 700 ~/.gnupg
+if [ -f /home/$(whoami)/.gnupg/gpg.conf ]; then
+chown -R $(whoami):$(whoami) /home/$(whoami)/.gnupg/
+chmod 600 /home/$(whoami)/.gnupg/*
+chmod 700 /home/$(whoami)/.gnupg/
+fi
 
 pushd ${WORKING_DIR}
   pushd ../
