@@ -22,7 +22,7 @@ env:
     - BUILD_JOBS="'all-spark-notebook'"
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get upgrade -qq
+  # - sudo apt-get upgrade -qq
   - sudo apt-get install python3 gdebi-core
   - export PATH=$PATH:$HOME/.local/bin
   - git clone https://github.com/taqtiqa/ci.git
@@ -39,8 +39,6 @@ script:
   - export -f travis_wait 
   - travis_wait 120 sleep infinity &
   - cat ./rkt-jupyter.sh | sudo bash
-  # Kill while loop (the last process executed in the background)
-  #- kill $!
 notifications:
   email:
     recipients:
