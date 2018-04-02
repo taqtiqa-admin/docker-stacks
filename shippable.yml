@@ -15,18 +15,17 @@ env:
     # ACI_SECRET
     - secure: EL4vSAXpf92NvlsO33b+sP2v+cfBu4UJAXlRtht3GCZyEltDClXiHdCEozNJBjn5KyoiNYCONSyqnoR3B3FuraBW7tBePqteffhSX2rfVv1BLShatI9trVHSVxZLRrLCW6V0csr+1SolJtGN0e/UmEdbFAMc//D63J+pkp/BaA/ntTUlnXQqzcpv6b4sE9NXBTLxyDhPWccQt6K9A29oWc4LzFeW1KCTzP53AsiNN8WXDzeqUtfdvcDNrNWzEwTuAaMVUk+O8Aij0ZwJmiizutxK0j6PBgr1hBNEd56JNVUG3e3M8CN0qT+yNRWeIreiRIhAWb0sZ9Q7ObYYMU8PRw==
     - DEPLOY_BUCKET=taqtiqa.io
-    - DEPLOY_REGION=
+    # - DEPLOY_REGION=
     - ARCH=amd64 ACI_NAME=$(basename $TRAVIS_REPO_SLUG) ACI_ORG=$(dirname $TRAVIS_REPO_SLUG)
     - DEBIAN_FRONTEND=noninteractive
-
-matrix:
-  # - BUILD_JOBS="'base-notebook' 'minimal-notebook'"
-  # - BUILD_JOBS="'scipy-notebook'"
-  # - BUILD_JOBS="'r-notebook'"
-  # - BUILD_JOBS="'tensorflow-notebook'"
-  - BUILD_JOBS="'datascience-notebook'"
-  - BUILD_JOBS="'pyspark-notebook'"
-  - BUILD_JOBS="'all-spark-notebook'"
+  matrix:
+    # - BUILD_JOBS="'base-notebook' 'minimal-notebook'"
+    # - BUILD_JOBS="'scipy-notebook'"
+    # - BUILD_JOBS="'r-notebook'"
+    # - BUILD_JOBS="'tensorflow-notebook'"
+    - BUILD_JOBS="'datascience-notebook'"
+    - BUILD_JOBS="'pyspark-notebook'"
+    - BUILD_JOBS="'all-spark-notebook'"
 build:
   ci:
     - printenv | sort

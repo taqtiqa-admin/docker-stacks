@@ -116,6 +116,7 @@ pushd ${WORKING_DIR}
       # If no GPG keyring to sign with create one
       ./scripts/gpg-init.sh ${TMP_PRIVATE_KEYRING} ${TMP_PUBLIC_KEYRING}
       # Encrypt for Travis private key and keyring if unencrypted.
+      ${PRIVATE_KEY}
       ./scripts/travis-encrypt-file.sh ${PRIVATE_KEY}
       ./scripts/travis-encrypt-file.sh ${PUBLIC_KEY}
       echo "A private keyring NOW exists and needs decryption in the CI environment."
