@@ -1,7 +1,7 @@
 language: none
 dist: trusty
 sudo: true
-#if: tag IS present
+if: tag IS present
 cache:
   - pip
   - apt
@@ -19,13 +19,13 @@ env:
     - ARCH=amd64 ACI_NAME=$(basename $TRAVIS_REPO_SLUG) ACI_ORG=$(dirname $TRAVIS_REPO_SLUG)
     - DEBIAN_FRONTEND=noninteractive
   matrix:
-    # - BUILD_JOBS="'base-notebook' 'minimal-notebook'"
-    # - BUILD_JOBS="'scipy-notebook'"
-    # - BUILD_JOBS="'r-notebook'"
-    # - BUILD_JOBS="'tensorflow-notebook'"
-    - BUILD_JOBS="'datascience-notebook'"
-    - BUILD_JOBS="'pyspark-notebook'"
-    - BUILD_JOBS="'all-spark-notebook'"
+    - BUILD_JOBS="'base-notebook' 'minimal-notebook'"
+    - BUILD_JOBS="'scipy-notebook'"
+    - BUILD_JOBS="'r-notebook'"
+    - BUILD_JOBS="'tensorflow-notebook'"
+    # - BUILD_JOBS="'datascience-notebook'"
+    # - BUILD_JOBS="'pyspark-notebook'"
+    # - BUILD_JOBS="'all-spark-notebook'"
 build:
   ci:
     - printenv | sort
