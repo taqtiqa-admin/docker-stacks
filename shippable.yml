@@ -45,7 +45,7 @@ build:
   post_ci:
     # Builds are silent+long so tickle the travis-ci log
     # https://github.com/travis-ci/travis-ci/issues/6934
-    - cat ./rkt-jupyter.sh | sudo bash
+    - cat ./rkt-jupyter.sh | bash
     # Kill while loop (the last process executed in the background)
     #- kill $!
 notifications:
