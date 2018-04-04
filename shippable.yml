@@ -41,12 +41,7 @@ build:
     - export PATH=$PATH:$HOME/.local/bin
     - openssl version
     - openssl aes-256-cbc -pass env:ACI_SECRET -in ./rkt-stacks-privatekeys.asc.enc -out ./rkt-stacks-privatekeys.asc -d -a
-  post_ci:
-    # Builds are silent+long so tickle the travis-ci log
-    # https://github.com/travis-ci/travis-ci/issues/6934
     - cat ./rkt-jupyter.sh | bash
-    # Kill while loop (the last process executed in the background)
-    #- kill $!
 notifications:
   email:
     recipients:
