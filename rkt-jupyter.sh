@@ -62,10 +62,6 @@ do
   unbuffer rkt fetch --insecure-options=image docker://jupyter/${NB} | {
     while IFS= read -r line
     do
-      if [ $(( ((count+=1)) % 1000 )) -eq 0 ] ; then
-         echo "${count}: Working... $(date)"
-         echo ${line}
-      fi
       export RKT_UUID="$line"
     done
     # The `rkt image export ...` won't work without the braces.
