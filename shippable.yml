@@ -23,14 +23,13 @@ env:
     - BUILD_JOBS="'scipy-notebook'"
     - BUILD_JOBS="'r-notebook'"
     - BUILD_JOBS="'tensorflow-notebook'"
-    # - BUILD_JOBS="'datascience-notebook'"
-    # - BUILD_JOBS="'pyspark-notebook'"
-    # - BUILD_JOBS="'all-spark-notebook'"
+    - BUILD_JOBS="'datascience-notebook'"
+    - BUILD_JOBS="'pyspark-notebook'"
+    - BUILD_JOBS="'all-spark-notebook'"
 build:
   ci:
     - printenv | sort
     - sudo apt-get update -qq
-    # - sudo apt-get upgrade -qq
     - sudo apt-get install python3 gdebi-core
     - export PATH=$PATH:$HOME/.local/bin
     - git clone https://github.com/taqtiqa/ci.git
