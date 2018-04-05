@@ -40,7 +40,7 @@ build:
     - export PATH=$PATH:$HOME/.local/bin
     - openssl version
     - openssl aes-256-cbc -pass env:ACI_SECRET -in ./rkt-stacks-privatekeys.asc.enc -out ./rkt-stacks-privatekeys.asc -d -a
-    - cat ./rkt-jupyter.sh | bash
+    - cat ./rkt-jupyter.sh | sudo -E bash
 notifications:
   email:
     recipients:

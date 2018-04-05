@@ -68,9 +68,9 @@ do
     echo "The RKT_UUID is: ${RKT_UUID}"
     rkt image export ${RKT_UUID} ./deploy/${NB_ACI} --overwrite=true
     ./scripts/sign.sh ./deploy/${NB_ACI}
-    cat ci/scripts/s3-deploy-rkt.sh | sudo bash 
-    sudo rkt gc --grace-period=1s
-    sudo find ./deploy -maxdepth 1 -type f -delete
+    cat ci/scripts/s3-deploy-rkt.sh | sudo -E bash 
+    sudo -E rkt gc --grace-period=1s
+    sudo -E find ./deploy -maxdepth 1 -type f -delete
   }
 done
 
