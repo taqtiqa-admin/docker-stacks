@@ -19,6 +19,7 @@ env:
     - ARCH=amd64 ACI_NAME=$(basename $TRAVIS_REPO_SLUG) ACI_ORG=$(dirname $TRAVIS_REPO_SLUG)
     - DEBIAN_FRONTEND=noninteractive
     - PATH=$HOME/gopath/bin:$HOME/.local/bin:$PATH
+    - GOPATH=$SHIPPABLE_GOPATH
   matrix:
     - BUILD_JOBS="'base-notebook' 'minimal-notebook'"
     - BUILD_JOBS="'scipy-notebook'"
