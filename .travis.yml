@@ -14,7 +14,7 @@ env:
     - DEPLOY_BUCKET=taqtiqa.io
     - ARCH=amd64 ACI_NAME=$(basename $TRAVIS_REPO_SLUG) ACI_ORG=$(dirname $TRAVIS_REPO_SLUG)
     - DEBIAN_FRONTEND=noninteractive
-    - PATH=$HOME/.local/bin:$PATH
+    - PATH=$HOME/gopath/bin:$HOME/.local/bin:$PATH
   matrix:
     - BUILD_JOBS="'base-notebook' 'minimal-notebook'"
     - BUILD_JOBS="'scipy-notebook'"
@@ -24,6 +24,7 @@ env:
     - BUILD_JOBS="'pyspark-notebook'"
     - BUILD_JOBS="'all-spark-notebook'"
 before_install:
+  - export PATH=$HOME/gopath/bin:$HOME/.local/bin:$PATH
   - sudo apt-get update -qq
   # - sudo apt-get upgrade -qq
   - sudo apt-get install python3 gdebi-core
@@ -34,7 +35,6 @@ before_install:
   - cat ci/scripts/install-docker2aci.sh | sudo bash
   - cat ci/scripts/install-awscli.sh | sudo -H bash
   - cat ./scripts/gen-keys.sh | sudo bash -s $TRAVIS_BRANCH
-  - export PATH=$PATH:$HOME/.local/bin
 before_script:
   - openssl aes-256-cbc -pass env:ACI_SECRET -in ./rkt-stacks-privatekeys.asc.enc -out ./rkt-stacks-privatekeys.asc -d -a
 script:
