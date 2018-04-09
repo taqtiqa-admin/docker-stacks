@@ -28,12 +28,12 @@ echo "#########################################################"
 set -exuo pipefail
 
 DEFAULT_ARCH=amd64
-DEFAULT_TAG=0.0.0
+DEFAULT_TAG=8a1b90cbcba5
 DEFAULT_TARGET_OS=linux
 DEFAULT_DEPLOY_DIR=./deploy
 
 BUILD_ARCH=${ARCH:-$DEFAULT_ARCH}
-BUILD_TAG=${TRAVIS_TAG:-$DEFAULT_TAG}
+BUILD_TAG=${DEFAULT_TAG}
 BUILD_TARGET_OS=${DEFAULT_TARGET_OS:-$DEFAULT_TARGET_OS}
 BUILD_DEPLOY_DIR=${DEFAULT_DEPLOY_DIR:-$DEFAULT_DEPLOY_DIR}
 
@@ -56,22 +56,21 @@ do
   echo "#############################################################"
   echo "##  Start Processing ${NB} to ${NB_ACI}"
   echo "#############################################################"
-  # or do whatever with individual element of the array
-  #stdbuf -oL rkt fetch --insecure-options=image docker://jupyter/${NB} | {
-  count=0
-  unbuffer rkt fetch --insecure-options=image docker://jupyter/${NB} | {
-    while IFS= read -r line
-    do
-      export RKT_UUID="$line"
-    done
-    # The `rkt image export ...` won't work without the braces.
-    echo "The RKT_UUID is: ${RKT_UUID}"
-    rkt image export ${RKT_UUID} ./deploy/${NB_ACI} --overwrite=true
-    ./scripts/sign.sh ./deploy/${NB_ACI}
-    cat ci/scripts/s3-deploy-rkt.sh | sudo -E bash 
-    sudo -E rkt gc --grace-period=1s
-    sudo -E find ./deploy -maxdepth 1 -type f -delete
-  }
+
+  ./bin/skopeo copy docker://jupyter/${NB}:${BUILD_TAG} oci:${NB}:${BUILD_TAG}
+  tar cf ${NB}.oci -C ${NB} .
+  rm -rf ${NB}
+
+  ./bin/docker2aci -image=${NB}:${BUILD_TAG} ${NB}.oci
+
+  mkdir -p ./deploy/
+  find ./ -name "*${NB}*\.aci" -exec mv {}  ./deploy/${NB_ACI} \;
+
+  ./scripts/sign.sh ./deploy/${NB_ACI}
+
+  cat ci/scripts/s3-deploy-rkt.sh | sudo -E bash 
+
+  sudo -E find ./deploy -maxdepth 1 -type f -delete
 done
 
 ./scripts/gen-keys.sh ${BUILD_TAG}
