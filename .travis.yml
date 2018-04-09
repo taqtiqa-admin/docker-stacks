@@ -6,7 +6,7 @@ cache:
   - pip
   - apt
 go:
-  - 1.6
+  - 1.9
 env:
   global:
     # ACI_SECRET
@@ -15,6 +15,7 @@ env:
     - ARCH=amd64 ACI_NAME=$(basename $TRAVIS_REPO_SLUG) ACI_ORG=$(dirname $TRAVIS_REPO_SLUG)
     - DEBIAN_FRONTEND=noninteractive
     - PATH=$HOME/gopath/bin:$HOME/.local/bin:$PATH
+    - export GOROOT=$(go env GOROOT)
   matrix:
     - BUILD_JOBS="'base-notebook' 'minimal-notebook'"
     - BUILD_JOBS="'scipy-notebook'"
