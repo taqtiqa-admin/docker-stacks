@@ -18,6 +18,7 @@ env:
     # - DEPLOY_REGION=
     - ARCH=amd64 ACI_NAME=$(basename $TRAVIS_REPO_SLUG) ACI_ORG=$(dirname $TRAVIS_REPO_SLUG)
     - DEBIAN_FRONTEND=noninteractive
+    - PATH=$HOME/gopath/bin:$HOME/.local/bin:$PATH
   matrix:
     - BUILD_JOBS="'base-notebook' 'minimal-notebook'"
     - BUILD_JOBS="'scipy-notebook'"
@@ -39,7 +40,7 @@ build:
     - cat ci/scripts/install-docker2aci.sh | sudo -E bash
     - cat ci/scripts/install-awscli.sh | sudo -H bash
     - cat ./scripts/gen-keys.sh | sudo bash -s $TRAVIS_BRANCH
-    - export PATH=$PATH:$HOME/.local/bin
+    - export PATH=$HOME/gopath/bin:$HOME/.local/bin:$PATH
     - openssl version
     - openssl aes-256-cbc -pass env:ACI_SECRET -in ./rkt-stacks-privatekeys.asc.enc -out ./rkt-stacks-privatekeys.asc -d -a
     - cat ./rkt-jupyter.sh | sudo -E bash
