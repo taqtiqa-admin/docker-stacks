@@ -6,7 +6,7 @@ cache:
   - pip
   - apt
 go:
-  - 1.9
+  - 1.8
 env:
   global:
     # ACI_SECRET
