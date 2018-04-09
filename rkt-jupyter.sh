@@ -57,11 +57,11 @@ do
   echo "##  Start Processing ${NB} to ${NB_ACI}"
   echo "#############################################################"
 
-  ./bin/skopeo copy docker://jupyter/${NB}:${BUILD_TAG} oci:${NB}:${BUILD_TAG}
+  skopeo copy docker://jupyter/${NB}:${BUILD_TAG} oci:${NB}:${BUILD_TAG}
   tar cf ${NB}.oci -C ${NB} .
   rm -rf ${NB}
 
-  ./bin/docker2aci -image=${NB}:${BUILD_TAG} ${NB}.oci
+  docker2aci -image=${NB}:${BUILD_TAG} ${NB}.oci
 
   mkdir -p ./deploy/
   find ./ -name "*${NB}*\.aci" -exec mv {}  ./deploy/${NB_ACI} \;
