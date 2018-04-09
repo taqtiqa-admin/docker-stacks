@@ -1,10 +1,12 @@
-language: none
+language: go
 dist: trusty
 sudo: true
 if: tag IS present
 cache:
   - pip
   - apt
+go:
+  - 1.8
 branches:
   only:
     - 8a1b90cbcba5
