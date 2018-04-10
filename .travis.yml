@@ -34,8 +34,8 @@ before_install:
   - git clone https://github.com/taqtiqa/ci.git
   - cat ci/scripts/install-openssl.sh | sudo bash
   - cat ci/scripts/install-rkt.sh | bash
-  - cat ci/scripts/install-skopeo.sh | sudo -E bash
-  - cat ci/scripts/install-docker2aci.sh | sudo -E bash
+  # - cat ci/scripts/install-skopeo.sh | sudo -E bash
+  # - cat ci/scripts/install-docker2aci.sh | sudo -E bash
   - cat ci/scripts/install-awscli.sh | sudo -H bash
   - cat ./scripts/gen-keys.sh | sudo bash -s $TRAVIS_BRANCH
 before_script:
