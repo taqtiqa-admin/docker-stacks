@@ -5,8 +5,9 @@ if: tag IS present
 cache:
   - pip
   - apt
-go:
-  - 1.8
+include:
+  go:
+    - 1.8
 env:
   global:
     # ACI_SECRET
