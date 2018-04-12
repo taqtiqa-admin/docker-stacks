@@ -31,6 +31,7 @@ before_install:
   - sudo apt-get update -qq
   # - sudo apt-get upgrade -qq
   - sudo apt-get install python3 gdebi-core
+  - chmod 600 /home/travis/.gnupg/gpg.conf
   - git clone https://github.com/taqtiqa/ci.git
   - cat ci/scripts/install-openssl.sh | sudo sudo -E "PATH=$PATH" bash
   - cat ci/scripts/install-rkt.sh | sudo -E "PATH=$PATH" bash
